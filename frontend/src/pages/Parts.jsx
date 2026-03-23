@@ -139,12 +139,12 @@ export default function Parts() {
   useEffect(() => { fetchParts(); }, [fetchParts]);
 
   useEffect(() => {
-    api.get('/parts/categories').then(res => setCategories(res.data)).catch(() => {});
+    api.get('/parts/categories').then(res => setCategories(Array.isArray(res.data) ? res.data : [])).catch(() => {});
   }, []);
 
   useEffect(() => {
     if (!user) return;
-    api.get('/parts/saved/list').then(res => setSavedIds(new Set(res.data.map(p => p.id)))).catch(() => {});
+    api.get('/parts/saved/list').then(res => setSavedIds(new Set(Array.isArray(res.data) ? res.data.map(p => p.id) : []))).catch(() => {});
   }, [user]);
 
   const onSaveToggle = (partId, isSaved) => {

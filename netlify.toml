@@ -2,6 +2,15 @@
   command = "npm install --prefix frontend && npm run build --prefix frontend"
   publish = "frontend/dist"
 
+# API calls should NOT be served as index.html — return 404 so the frontend
+# can handle the error gracefully.  Set VITE_API_URL in Netlify environment
+# variables to point to your backend when deploying separately.
+[[redirects]]
+  from = "/api/*"
+  to = "/404"
+  status = 404
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

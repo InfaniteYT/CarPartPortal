@@ -234,7 +234,7 @@ export default function Builds() {
   useEffect(() => { fetchBuilds(); }, [fetchBuilds]);
 
   useEffect(() => {
-    api.get('/builds/categories/list').then(res => setCategories(res.data)).catch(() => {});
+    api.get('/builds/categories/list').then(res => setCategories(Array.isArray(res.data) ? res.data : [])).catch(() => {});
   }, []);
 
   const handleAdded = (build) => setBuilds(prev => [build, ...prev]);
