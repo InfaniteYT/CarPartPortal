@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import api from '../api';
 
 const CAR_MAKES = [
@@ -18,6 +19,7 @@ const years = Array.from({ length: currentYear - 1969 }, (_, i) => currentYear -
 const CAR_EMOJIS = ['🚗', '🚙', '🏎️', '🚕', '🚓', '🛻'];
 
 function CarCard({ car, onDelete }) {
+  const { addToast } = useToast();
   const [deleting, setDeleting] = useState(false);
   const emoji = CAR_EMOJIS[car.id % CAR_EMOJIS.length];
 
@@ -28,7 +30,7 @@ function CarCard({ car, onDelete }) {
       await api.delete(`/cars/${car.id}`);
       onDelete(car.id);
     } catch {
-      alert('Failed to delete car.');
+      addToast('Failed to delete car. Please try again.', 'error');
     } finally {
       setDeleting(false);
     }

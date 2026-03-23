@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import api from '../api';
 
 const TYPE_LABELS = {
@@ -11,11 +12,12 @@ const TYPE_LABELS = {
 
 function PartCard({ part, savedIds, onSaveToggle, highlighted }) {
   const { user } = useAuth();
+  const { addToast } = useToast();
   const isSaved = savedIds.has(part.id);
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
-    if (!user) return alert('Please log in to save parts.');
+    if (!user) return addToast('Please log in to save parts.', 'info');
     setSaving(true);
     try {
       if (isSaved) {
@@ -25,7 +27,7 @@ function PartCard({ part, savedIds, onSaveToggle, highlighted }) {
       }
       onSaveToggle(part.id, !isSaved);
     } catch {
-      alert('Failed to update saved parts.');
+      addToast('Failed to update saved parts.', 'error');
     } finally {
       setSaving(false);
     }
@@ -282,7 +284,7 @@ export default function Parts() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {parts.map(part => (
-                  <PartCard key={`${part.id}`} part={part} savedIds={savedIds} onSaveToggle={onSaveToggle} />
+                  <PartCard key={part.id} part={part} savedIds={savedIds} onSaveToggle={onSaveToggle} />
                 ))}
               </div>
             )}

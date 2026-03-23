@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useToast } from '../context/ToastContext';
 import api from '../api';
 
 export default function SavedParts() {
   const [parts, setParts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { addToast } = useToast();
 
   useEffect(() => {
     api.get('/parts/saved/list').then(res => setParts(res.data)).catch(() => {}).finally(() => setLoading(false));
@@ -15,7 +17,7 @@ export default function SavedParts() {
       await api.delete(`/parts/save/${partId}`);
       setParts(prev => prev.filter(p => p.id !== partId));
     } catch {
-      alert('Failed to remove part.');
+      addToast('Failed to remove part.', 'error');
     }
   };
 
