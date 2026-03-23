@@ -127,8 +127,8 @@ export default function Parts() {
       if (category && category !== 'all') params.category = category;
       if (search) params.search = search;
       const res = await api.get('/parts', { params });
-      setParts(res.data.parts);
-      setTotal(res.data.total);
+      setParts(res.data.parts ?? []);
+      setTotal(res.data.total ?? 0);
     } catch {
       // ignore
     } finally {
