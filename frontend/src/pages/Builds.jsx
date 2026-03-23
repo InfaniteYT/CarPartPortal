@@ -222,8 +222,8 @@ export default function Builds() {
       if (search) params.search = search;
       if (make !== 'all') params.make = make;
       const res = await api.get('/builds', { params });
-      setBuilds(res.data.builds);
-      setTotal(res.data.total);
+      setBuilds(res.data.builds ?? []);
+      setTotal(res.data.total ?? 0);
     } catch {
       // ignore
     } finally {
