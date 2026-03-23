@@ -7,29 +7,39 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-950">
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-red-950 py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="text-6xl mb-6">🏎️</div>
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+      <section className="relative overflow-hidden py-24 px-4">
+        {/* Background gradient blobs */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-red-900/10 rounded-full blur-3xl"></div>
+        </div>
+        <div className="relative max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-red-600/10 border border-red-500/20 text-red-400 text-sm font-medium px-4 py-1.5 rounded-full mb-8">
+            <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+            Find the perfect parts for your build
+          </div>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
             Your Ultimate<br />
-            <span className="text-red-500">Car Parts</span> Portal
+            <span className="bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">
+              Car Parts
+            </span>{' '}Portal
           </h1>
-          <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-            Sign up, add your car, and discover performance parts, OEM replacements,
-            and expert build ideas — all in one place.
+          <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Add your car to your garage and get personalized part recommendations,
+            performance upgrades, and expert build ideas — all in one place.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {user ? (
               <>
                 <Link
                   to="/garage"
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105"
+                  className="bg-red-600 hover:bg-red-500 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 hover:scale-105 active:scale-100"
                 >
                   🚗 My Garage
                 </Link>
                 <Link
                   to="/parts"
-                  className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105"
+                  className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 hover:scale-105 active:scale-100"
                 >
                   🔩 Browse Parts
                 </Link>
@@ -38,13 +48,13 @@ export default function Home() {
               <>
                 <Link
                   to="/signup"
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105"
+                  className="bg-red-600 hover:bg-red-500 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 hover:scale-105 active:scale-100"
                 >
-                  Get Started Free
+                  Get Started Free →
                 </Link>
                 <Link
                   to="/parts"
-                  className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all transform hover:scale-105"
+                  className="bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all duration-200 hover:scale-105 active:scale-100"
                 >
                   Browse Parts
                 </Link>
@@ -55,21 +65,65 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section className="py-16 px-4 bg-gray-900">
+      <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">Everything You Need</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl font-bold text-white mb-3">Everything You Need</h2>
+            <p className="text-gray-500 max-w-xl mx-auto">From daily drivers to track builds — we have the parts and inspiration to take your car further.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { icon: '🚗', title: 'My Garage', desc: 'Add your cars and keep track of your fleet. Year, make, model, engine — all saved.', link: user ? '/garage' : '/signup', cta: user ? 'Open Garage' : 'Get Started' },
-              { icon: '⚡', title: 'Performance Parts', desc: 'Turbos, intakes, exhausts, suspension upgrades — find parts to unlock your car\'s potential.', link: '/parts?type=performance', cta: 'Shop Performance' },
-              { icon: '🔧', title: 'Normal Parts', desc: 'Brake pads, filters, belts, sensors — find quality OEM-spec replacement parts.', link: '/parts?type=normal', cta: 'Shop Parts' },
-              { icon: '🛠️', title: 'Build Ideas', desc: 'Get inspired with curated build guides from beginner to expert level.', link: '/builds', cta: 'Get Inspired' },
+              {
+                icon: '🚗',
+                title: 'My Garage',
+                desc: 'Add your cars and track your fleet. Year, make, model, engine — all saved for personalized recommendations.',
+                link: user ? '/garage' : '/signup',
+                cta: user ? 'Open Garage' : 'Get Started',
+                color: 'from-red-600/10 to-transparent',
+                border: 'hover:border-red-500/40',
+              },
+              {
+                icon: '⚡',
+                title: 'Performance Parts',
+                desc: 'Turbos, intakes, exhausts, coilovers — unlock your car\'s full potential with premium upgrades.',
+                link: '/parts?type=performance',
+                cta: 'Shop Performance',
+                color: 'from-orange-600/10 to-transparent',
+                border: 'hover:border-orange-500/40',
+              },
+              {
+                icon: '🔧',
+                title: 'OEM / Normal Parts',
+                desc: 'Brake pads, filters, belts, sensors — quality replacement parts to keep your car running perfectly.',
+                link: '/parts?type=normal',
+                cta: 'Shop Parts',
+                color: 'from-blue-600/10 to-transparent',
+                border: 'hover:border-blue-500/40',
+              },
+              {
+                icon: '🛠️',
+                title: 'Build Ideas',
+                desc: 'Curated build guides from beginner to expert. Get inspired and plan your next project.',
+                link: '/builds',
+                cta: 'Get Inspired',
+                color: 'from-purple-600/10 to-transparent',
+                border: 'hover:border-purple-500/40',
+              },
             ].map((feature) => (
-              <Link key={feature.title} to={feature.link} className="group bg-gray-800 hover:bg-gray-750 border border-gray-700 hover:border-red-600 rounded-2xl p-6 transition-all">
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-white font-bold text-lg mb-2">{feature.title}</h3>
-                <p className="text-gray-400 text-sm mb-4">{feature.desc}</p>
-                <span className="text-red-400 text-sm font-medium group-hover:text-red-300">{feature.cta} →</span>
+              <Link
+                key={feature.title}
+                to={feature.link}
+                className={`group relative bg-gray-900 border border-white/5 ${feature.border} rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden`}
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
+                <div className="relative">
+                  <div className="text-4xl mb-4">{feature.icon}</div>
+                  <h3 className="text-white font-bold text-lg mb-2">{feature.title}</h3>
+                  <p className="text-gray-500 text-sm mb-4 leading-relaxed">{feature.desc}</p>
+                  <span className="text-red-400 text-sm font-medium group-hover:text-red-300 transition-colors">
+                    {feature.cta} →
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
@@ -77,7 +131,7 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section className="py-12 px-4 bg-gray-950">
+      <section className="py-12 px-4 border-y border-white/5">
         <div className="max-w-4xl mx-auto grid grid-cols-3 gap-6 text-center">
           {[
             { value: '28+', label: 'Parts in Catalog' },
@@ -85,8 +139,10 @@ export default function Home() {
             { value: '100%', label: 'Free to Use' },
           ].map((stat) => (
             <div key={stat.label}>
-              <div className="text-4xl font-extrabold text-red-500 mb-1">{stat.value}</div>
-              <div className="text-gray-400 text-sm">{stat.label}</div>
+              <div className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent mb-1">
+                {stat.value}
+              </div>
+              <div className="text-gray-500 text-sm">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -94,21 +150,27 @@ export default function Home() {
 
       {/* CTA */}
       {!user && (
-        <section className="py-16 px-4 bg-gradient-to-r from-red-900 to-red-800">
+        <section className="py-20 px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Ready to Build?</h2>
-            <p className="text-red-200 mb-8">Join thousands of car enthusiasts finding the perfect parts for their builds.</p>
-            <Link
-              to="/signup"
-              className="bg-white text-red-700 font-bold py-4 px-10 rounded-xl text-lg hover:bg-red-50 transition-all inline-block"
-            >
-              Create Free Account
-            </Link>
+            <div className="bg-gradient-to-br from-gray-900 to-gray-900 border border-red-500/20 rounded-3xl p-10 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 to-transparent pointer-events-none"></div>
+              <div className="relative">
+                <div className="text-5xl mb-4">🏎️</div>
+                <h2 className="text-3xl font-bold text-white mb-3">Ready to Build?</h2>
+                <p className="text-gray-400 mb-8">Create your free account, add your cars, and start discovering the perfect parts for your builds.</p>
+                <Link
+                  to="/signup"
+                  className="bg-red-600 hover:bg-red-500 text-white font-bold py-4 px-10 rounded-xl text-lg transition-all duration-200 shadow-lg shadow-red-600/30 hover:shadow-red-600/50 hover:scale-105 active:scale-100 inline-block"
+                >
+                  Create Free Account →
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       )}
 
-      <footer className="bg-gray-900 border-t border-gray-800 py-8 text-center text-gray-500 text-sm">
+      <footer className="border-t border-white/5 py-8 text-center text-gray-600 text-sm">
         <p>🔧 CarPartPortal — Find the right parts for your build</p>
       </footer>
     </div>
