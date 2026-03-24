@@ -19,6 +19,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     const res = await api.post('/auth/login', { email, password });
+    if (!res.data?.token || !res.data?.user) throw new Error('Unexpected server response.');
     localStorage.setItem('token', res.data.token);
     setUser(res.data.user);
     return res.data.user;
@@ -26,6 +27,7 @@ export function AuthProvider({ children }) {
 
   const signup = async (username, email, password) => {
     const res = await api.post('/auth/signup', { username, email, password });
+    if (!res.data?.token || !res.data?.user) throw new Error('Unexpected server response.');
     localStorage.setItem('token', res.data.token);
     setUser(res.data.user);
     return res.data.user;

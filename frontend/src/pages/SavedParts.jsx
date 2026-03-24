@@ -9,7 +9,7 @@ export default function SavedParts() {
   const { addToast } = useToast();
 
   useEffect(() => {
-    api.get('/parts/saved/list').then(res => setParts(res.data)).catch(() => {}).finally(() => setLoading(false));
+    api.get('/parts/saved/list').then(res => setParts(Array.isArray(res.data) ? res.data : [])).catch(() => {}).finally(() => setLoading(false));
   }, []);
 
   const handleUnsave = async (partId) => {

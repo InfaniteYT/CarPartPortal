@@ -228,7 +228,7 @@ export default function Garage() {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    api.get('/cars').then(res => setCars(res.data)).catch(() => {}).finally(() => setLoading(false));
+    api.get('/cars').then(res => setCars(Array.isArray(res.data) ? res.data : [])).catch(() => {}).finally(() => setLoading(false));
   }, []);
 
   const handleAdded = (car) => setCars(prev => [car, ...prev]);
