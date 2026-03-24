@@ -134,8 +134,8 @@ export default function Home() {
       <section className="py-12 px-4 border-y border-white/5">
         <div className="max-w-4xl mx-auto grid grid-cols-3 gap-6 text-center">
           {[
-            { value: '28+', label: 'Parts in Catalog' },
-            { value: '14+', label: 'Build Ideas' },
+            { value: '76+', label: 'Parts in Catalog' },
+            { value: '26+', label: 'Build Ideas' },
             { value: '100%', label: 'Free to Use' },
           ].map((stat) => (
             <div key={stat.label}>
