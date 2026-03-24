@@ -2,13 +2,15 @@
   command = "npm install --prefix frontend && npm run build --prefix frontend"
   publish = "frontend/dist"
 
-# API calls should NOT be served as index.html — return 404 so the frontend
-# can handle the error gracefully.  Set VITE_API_URL in Netlify environment
-# variables to point to your backend when deploying separately.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Route /api/* to the serverless function so auth, parts, builds and cars work.
 [[redirects]]
   from = "/api/*"
-  to = "/404"
-  status = 404
+  to = "/.netlify/functions/api/:splat"
+  status = 200
   force = true
 
 [[redirects]]
