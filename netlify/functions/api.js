@@ -559,11 +559,6 @@ exports.handler = async function (event) {
 
   // GET /builds/categories/list
   if (method === 'GET' && segments[0] === 'builds' && segments[1] === 'categories' && segments[2] === 'list') {
-    const allBuilds = [
-      ...BUILDS,
-      ...[...cars.values()], // user builds added later
-    ];
-    // Only from BUILDS for now
     const cats = [...new Set(BUILDS.map(b => b.category))].sort();
     return respond(200, cats);
   }
